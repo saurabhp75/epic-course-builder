@@ -7,7 +7,7 @@ export function Logo() {
 				Epic
 			</span>
 			<span className="font-bold transition group-hover:translate-x-1">
-				Forms
+				Course
 			</span>
 		</Link>
 	)
