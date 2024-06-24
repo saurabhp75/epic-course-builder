@@ -20,6 +20,8 @@ const schema = z.object({
 	// If you plan to use Google auth, remove the default:
 	GOOGLE_CLIENT_ID: z.string().default('MOCK_GOOGLE_CLIENT_ID'),
 	GOOGLE_CLIENT_SECRET: z.string().default('MOCK_GOOGLE_CLIENT_SECRET'),
+	GEMINI_API_KEY: z.string(),
+	UNSPLASH_ACCESS_KEY: z.string(),
 })
 
 declare global {

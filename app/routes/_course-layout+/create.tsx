@@ -3,6 +3,7 @@ import { getZodConstraint, parseWithZod } from '@conform-to/zod'
 import { type LoaderFunctionArgs, json } from '@remix-run/node'
 // import { useLoaderData } from '@remix-run/react'
 import { Form } from '@remix-run/react'
+import { HoneypotInputs } from 'remix-utils/honeypot/react'
 import { z } from 'zod'
 import { Field } from '#app/components/forms.js'
 import { Button } from '#app/components/ui/button.js'
@@ -19,7 +20,7 @@ export default function Create() {
 	return (
 		<div className="mx-auto my-16 flex max-w-xl flex-col items-start px-8 sm:px-0">
 			<h1 className="self-center text-center text-3xl font-bold sm:text-6xl">
-				Learning Journey
+				Create Your Course
 			</h1>
 			<div className="mt-5 flex border-none bg-secondary p-4">
 				<Icon name="info" className="mr-3 h-12 w-12 text-blue-400" />
@@ -36,12 +37,12 @@ export default function Create() {
 }
 
 type Props = { isPro: boolean }
-const createChaptersSchema = z.object({
+export const createChaptersSchema = z.object({
 	title: z.string().min(3).max(100),
 	units: z.array(z.string()),
 })
-// type Input = z.infer<typeof createChaptersSchema>
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function CreateCourseForm({ isPro }: Props) {
 	const [form, fields] = useForm({
 		constraint: getZodConstraint(createChaptersSchema),
@@ -50,12 +51,15 @@ function CreateCourseForm({ isPro }: Props) {
 			return parseWithZod(formData, { schema: createChaptersSchema })
 		},
 		defaultValue: {
-			title: '',
-			units: ['', '', ''],
+			// title: '',
+			// units: ['', '', ''],
+			title: 'Calculus',
+			units: ['Introduction', 'Differentiation', 'Integration'],
 		},
 		// shouldRevalidate: 'onBlur',
 	})
 	const units = fields.units.getFieldList()
+
 	// const router = useRouter()
 	// const { toast } = useToast()
 	// const { mutate: createChapters, isLoading } = useMutation({
@@ -98,30 +102,41 @@ function CreateCourseForm({ isPro }: Props) {
 
 	return (
 		<div className="w-full">
-			<Form method="POST" {...getFormProps(form)} className="mt-4 w-full">
+			<Form
+				method="POST"
+				action="/resources/create-chapters"
+				{...getFormProps(form)}
+				className="mt-4 w-full"
+			>
+				<HoneypotInputs />
 				<Field
 					labelProps={{
 						htmlFor: fields.title.id,
 						children: 'Title:',
 					}}
 					inputProps={{
+						autoFocus: true,
 						...getInputProps(fields.title, { type: 'text' }),
+						placeholder: 'Enter the main topic of the course',
 					}}
 					errors={fields.title.errors}
 				/>
 				<ul>
 					{units.map((unit, index) => {
+						// Delete key to remove key prop related warning
+						const inputProps = getInputProps(unit, { type: 'text' })
+						delete inputProps.key
 						return (
 							<li key={unit.key}>
-								<div className="flex items-center gap-2">
+								<div className="flex items-center gap-3">
 									<Field
 										labelProps={{
 											htmlFor: unit.id,
 											children: `Unit ${index + 1}:`,
 										}}
 										inputProps={{
-											// autoFocus: true,
-											...getInputProps(unit, { type: 'text' }),
+											...inputProps,
+											placeholder: 'Enter the subtopic',
 										}}
 										errors={unit.errors}
 									/>
@@ -151,7 +166,7 @@ function CreateCourseForm({ isPro }: Props) {
 				</Button>
 				<div id={form.errorId}>{form.errors}</div>
 				<Button type="submit" className="mt-2">
-					Submit
+					Create course
 				</Button>
 			</Form>
 		</div>
