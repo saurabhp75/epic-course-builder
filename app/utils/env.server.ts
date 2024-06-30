@@ -22,6 +22,7 @@ const schema = z.object({
 	GOOGLE_CLIENT_SECRET: z.string().default('MOCK_GOOGLE_CLIENT_SECRET'),
 	GEMINI_API_KEY: z.string(),
 	UNSPLASH_ACCESS_KEY: z.string(),
+	YOUTUBE_API_KEY: z.string(),
 })
 
 declare global {

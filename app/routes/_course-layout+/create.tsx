@@ -60,45 +60,8 @@ function CreateCourseForm({ isPro }: Props) {
 	})
 	const units = fields.units.getFieldList()
 
-	// const router = useRouter()
 	// const { toast } = useToast()
-	// const { mutate: createChapters, isLoading } = useMutation({
-	// 	mutationFn: async ({ title, units }: Input) => {
-	// 		const response = await axios.post('/api/course/createChapters', {
-	// 			title,
-	// 			units,
-	// 		})
-	// 		return response.data
-	// 	},
-	// })
-
-	// function onSubmit(data: Input) {
-	// 	if (data.units.some((unit) => unit === '')) {
-	// 		toast({
-	// 			title: 'Error',
-	// 			description: 'Please fill all the units',
-	// 			variant: 'destructive',
-	// 		})
-	// 		return
-	// 	}
-	// 	createChapters(data, {
-	// 		onSuccess: ({ course_id }) => {
-	// 			toast({
-	// 				title: 'Success',
-	// 				description: 'Course created successfully',
-	// 			})
-	// 			router.push(`/create/${course_id}`)
-	// 		},
-	// 		onError: (error) => {
-	// 			console.error(error)
-	// 			toast({
-	// 				title: 'Error',
-	// 				description: 'Something went wrong',
-	// 				variant: 'destructive',
-	// 			})
-	// 		},
-	// 	})
-	// }
+	// Toast on success and error
 
 	return (
 		<div className="w-full">
@@ -108,6 +71,12 @@ function CreateCourseForm({ isPro }: Props) {
 				{...getFormProps(form)}
 				className="mt-4 w-full"
 			>
+				{/*
+					This hidden submit button is here to ensure that when the user hits
+					"enter" on an input field, the primary form function is submitted
+					rather than the first button in the form (which is delete unit).
+				*/}
+				<button type="submit" className="hidden" />
 				<HoneypotInputs />
 				<Field
 					labelProps={{

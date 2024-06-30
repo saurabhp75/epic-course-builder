@@ -1,5 +1,5 @@
 import { parseWithZod } from '@conform-to/zod'
-import { type ActionFunctionArgs, json } from '@remix-run/node'
+import { type ActionFunctionArgs, json, redirect } from '@remix-run/node'
 import { getReply } from '#app/utils/ai.server.js'
 import { prisma } from '#app/utils/db.server.js'
 import { checkHoneypot } from '#app/utils/honeypot.server.js'
@@ -100,8 +100,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
 	// Get the image from unsplash
 	const courseImage = await getUnsplashImage(imageSearchTerm.imageSearchString)
-	console.log('courseImage:', courseImage)
-	console.log('typeof courseImage:', typeof courseImage)
+	// console.log('courseImage:', courseImage)
+	// console.log('typeof courseImage:', typeof courseImage)
 
 	// Store the course contents in db
 	const course = await prisma.course.create({
@@ -129,6 +129,7 @@ export async function action({ request }: ActionFunctionArgs) {
 			}),
 		})
 	}
+	// Update user billing info
 	// await prisma.user.update({
 	// 	where: {
 	// 		id: session.user.id,
@@ -140,8 +141,5 @@ export async function action({ request }: ActionFunctionArgs) {
 	// 	},
 	// })
 
-	// console.dir(submission.value)
-	// console.dir(submission.value)
-
-	return json(submission.value)
+	return redirect(`/course/confirm/${course.id}`)
 }

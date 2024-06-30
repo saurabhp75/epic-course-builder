@@ -8,7 +8,7 @@ const MODEL_NAME = 'gemini-1.5-flash-latest'
 
 export async function getReply({
 	userPrompt,
-	purpose, // GET_IMAGE | GET_UNITS
+	purpose, // GET_IMAGE | GET_UNITS | GET_SUMMARY | GET_QUESTIONS
 }: {
 	userPrompt: string
 	purpose: string
@@ -77,7 +77,15 @@ function getPrompt(purpose: string) {
 			return 'You are an expert at finding the most relevant image for a given course description. Your response should be an object with a single property named imageSearchString of type string. imageSearchString property will be fed into the unsplash API, so make sure it is a good search term that will return good result'
 		}
 
+		case 'GET_SUMMARY': {
+			return 'You are an expert capable of summarising a youtube transcript from given input.Your response should be an object with a single property named summmary of type string. Summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about.'
+		}
+
+		case 'GET_QUESTIONS': {
+			return `You are an expert in formulating mcq questions and answers from the course title and transcript. The course content is in the form of an object of shape ${JSON.stringify({ courseTitle: 'Title of the course', transcript: 'Transcript of the course' })} where courseTitle is a string which describes the course and transcript is a string which contains the content of the course. From the courseTitle and transcript generate an array of objects of length 5. Each object of the array should have following structure. A question property which is a string which describes the question in not more than 25 words. An answer property which is a string which describes the answer in not more than 30 words. And three properties viz, option1, option2 and option3, each of which is a string with not more than 25 words and contains other options for the question.`
+		}
+
 		default:
-			return ''
+			return 'Error'
 	}
 }
