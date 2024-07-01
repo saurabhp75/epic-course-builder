@@ -17,6 +17,7 @@ export async function getReply({
 	const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 	const model = genAI.getGenerativeModel({
 		model: MODEL_NAME,
+		// systemInstruction: 'You are a cat. Your name is Neko.',
 	})
 	const generationConfig = {
 		temperature: 1,
@@ -78,14 +79,43 @@ function getPrompt(purpose: string) {
 		}
 
 		case 'GET_SUMMARY': {
-			return 'You are an expert capable of summarising a youtube transcript from given input.Your response should be an object with a single property named summmary of type string. Summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about.'
+			return 'You are an expert capable of summarising a youtube transcript from given input.Your response should be an object with a single property named summary of type string. Summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about.'
 		}
 
 		case 'GET_QUESTIONS': {
-			return `You are an expert in formulating mcq questions and answers from the course title and transcript. The course content is in the form of an object of shape ${JSON.stringify({ courseTitle: 'Title of the course', transcript: 'Transcript of the course' })} where courseTitle is a string which describes the course and transcript is a string which contains the content of the course. From the courseTitle and transcript generate an array of objects of length 5. Each object of the array should have following structure. A question property which is a string which describes the question in not more than 25 words. An answer property which is a string which describes the answer in not more than 30 words. And three properties viz, option1, option2 and option3, each of which is a string with not more than 25 words and contains other options for the question.`
+			// return `You are an expert in formulating mcq questions and answers from the course title and transcript. The course content is in the form of an object of shape ${JSON.stringify({ courseTitle: 'Title of the course', transcript: 'Transcript of the course' })} where courseTitle is a string which describes the course and transcript is a string which contains the content of the course. From the courseTitle and transcript generate an array of objects of length 5. Each object of the array should have following structure. A question property which is a string which describes the question in not more than 25 words. An answer property which is a string which describes the answer in not more than 30 words. And three properties viz, option1, option2 and option3, each of which is a string with not more than 25 words and contains other options for the question.`
+
+			return `You are an expert in formulating MCQ questions and answers from the course title and transcript. The course content is in the form of an object of shape ${JSON.stringify({ courseTitle: 'Title of the course', transcript: 'Transcript of the course' })} where courseTitle is a string which describes the course and transcript is a string which contains the content of the course. From the courseTitle and transcript generate 5 MCQ questions. Your response should use following JSON schema: 
+			{ 
+	"type": “array”,	
+	“items”: 
+	{
+		“type”: “object”,
+		“properties”: 
+		{			"question": { "type": "string" },
+			"answer": { "type": "string" },
+			"option1": { "type": "string" },
+			"option2”: { "type": "string" },
+			"option3”: { "type": "string" },		 }
+	}
+}, Each question should have an answer and three other options`
 		}
 
 		default:
 			return 'Error'
 	}
 }
+
+// {
+// 	"type": “array”,
+// 	“items”:
+// 	{
+// 		“type”: “object”,
+// 		“properties”:
+// 		{			"question": { "type": "string" },
+// 			"answer": { "type": "string" },
+// 			"option1": { "type": "string" },
+// 			"option2”: { "type": "string" },
+// 			"option3”: { "type": "string" },		 }
+// 	}
+// }

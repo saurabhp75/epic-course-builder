@@ -51,10 +51,10 @@ function CreateCourseForm({ isPro }: Props) {
 			return parseWithZod(formData, { schema: createChaptersSchema })
 		},
 		defaultValue: {
-			// title: '',
-			// units: ['', '', ''],
-			title: 'Calculus',
-			units: ['Introduction', 'Differentiation', 'Integration'],
+			title: '',
+			units: ['', '', ''],
+			// title: 'Calculus',
+			// units: ['Introduction', 'Differentiation', 'Integration'],
 		},
 		// shouldRevalidate: 'onBlur',
 	})

@@ -22,6 +22,7 @@ type ImageSearchTerm = { imageSearchString: 'calculus graph equations' }
 export async function action({ request }: ActionFunctionArgs) {
 	const formData = await request.formData()
 	checkHoneypot(formData)
+	
 
 	const submission = parseWithZod(formData, {
 		schema: createChaptersSchema,
