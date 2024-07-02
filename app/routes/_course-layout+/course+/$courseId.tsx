@@ -91,13 +91,7 @@ export default function CourseId() {
 									</div>
 								)
 							})}
-							<a
-								href="https://sorablue.app"
-								className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-							>
-								{/* <Icon name="rocket" className="h-4 w-4" /> */}
-								Demo App
-							</a>
+
 							{/* <NavLink
 								to="starter-kit"
 								className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"

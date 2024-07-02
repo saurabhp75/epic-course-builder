@@ -2,7 +2,7 @@ import { getFormProps, getInputProps, useForm } from '@conform-to/react'
 import { getZodConstraint, parseWithZod } from '@conform-to/zod'
 import { type LoaderFunctionArgs, json } from '@remix-run/node'
 // import { useLoaderData } from '@remix-run/react'
-import { Form } from '@remix-run/react'
+import { Form, useNavigation } from '@remix-run/react'
 import { HoneypotInputs } from 'remix-utils/honeypot/react'
 import { z } from 'zod'
 import { Field } from '#app/components/forms.js'
@@ -44,19 +44,19 @@ export const createChaptersSchema = z.object({
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function CreateCourseForm({ isPro }: Props) {
+	const navigation = useNavigation()
+	const loading = navigation.state === 'submitting'
 	const [form, fields] = useForm({
 		constraint: getZodConstraint(createChaptersSchema),
-		// lastResult: forgotPassword.data?.result,
 		onValidate({ formData }) {
 			return parseWithZod(formData, { schema: createChaptersSchema })
 		},
 		defaultValue: {
 			title: '',
-			units: ['', '', ''],
+			units: [''],
 			// title: 'Calculus',
 			// units: ['Introduction', 'Differentiation', 'Integration'],
 		},
-		// shouldRevalidate: 'onBlur',
 	})
 	const units = fields.units.getFieldList()
 
@@ -86,7 +86,7 @@ function CreateCourseForm({ isPro }: Props) {
 					inputProps={{
 						autoFocus: true,
 						...getInputProps(fields.title, { type: 'text' }),
-						placeholder: 'Enter the main topic of the course',
+						placeholder: 'Enter the main title of the course',
 					}}
 					errors={fields.title.errors}
 				/>
@@ -105,7 +105,7 @@ function CreateCourseForm({ isPro }: Props) {
 										}}
 										inputProps={{
 											...inputProps,
-											placeholder: 'Enter the subtopic',
+											placeholder: 'Enter a subtopic',
 										}}
 										errors={unit.errors}
 									/>
@@ -116,6 +116,7 @@ function CreateCourseForm({ isPro }: Props) {
 											name: fields.units.name,
 											index,
 										})}
+										disabled={loading}
 									>
 										<Icon name="cross-1" size="xs" />
 									</Button>
@@ -129,13 +130,14 @@ function CreateCourseForm({ isPro }: Props) {
 					{...form.insert.getButtonProps({
 						name: fields.units.name,
 					})}
+					disabled={loading}
 				>
 					<Icon name="plus" />
 					Add unit
 				</Button>
 				<div id={form.errorId}>{form.errors}</div>
-				<Button type="submit" className="mt-2">
-					Create course
+				<Button type="submit" className="mt-2" disabled={loading}>
+					{loading ? 'Creating...' : 'Create course'}
 				</Button>
 			</Form>
 		</div>

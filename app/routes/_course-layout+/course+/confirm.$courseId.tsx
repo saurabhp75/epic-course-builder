@@ -1,7 +1,7 @@
 import { invariant } from '@epic-web/invariant'
 import { type Chapter, type Course, type Unit } from '@prisma/client'
 import { type LoaderFunctionArgs, json } from '@remix-run/node'
-import { Form, Link, useLoaderData } from '@remix-run/react'
+import { Form, Link, useLoaderData, useNavigation } from '@remix-run/react'
 import { Field } from '#app/components/forms.js'
 import { Button } from '#app/components/ui/button.js'
 import { Icon } from '#app/components/ui/icon.js'
@@ -76,6 +76,9 @@ export default function CourseId() {
 }
 
 function ConfirmChapters({ course }: CourseProps) {
+	const navigation = useNavigation()
+	const loading = navigation.state === 'submitting'
+
 	return (
 		<div className="mt-4 w-full">
 			<Form
@@ -127,7 +130,7 @@ function ConfirmChapters({ course }: CourseProps) {
 				})}
 				<div className="mt-4 flex items-center justify-center">
 					<div className="mx-4 flex items-center">
-						<Button asChild variant={'secondary'}>
+						<Button asChild variant={'secondary'} disabled={loading}>
 							<Link to="/create">
 								<Icon
 									name="chevron-left"
@@ -140,9 +143,9 @@ function ConfirmChapters({ course }: CourseProps) {
 						<Button
 							type="submit"
 							className="ml-4 font-semibold"
-							// disabled={loading}
+							disabled={loading}
 						>
-							Generate
+							{loading ? 'Generating...' : 'Generate'}
 							<Icon
 								name="chevron-right"
 								className="ml-2 h-4 w-4"
