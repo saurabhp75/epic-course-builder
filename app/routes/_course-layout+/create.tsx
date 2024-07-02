@@ -26,8 +26,8 @@ export default function Create() {
 				<Icon name="info" className="mr-3 h-12 w-12 text-blue-400" />
 				<div>
 					Enter in a course title, or what you want to learn about. Then enter a
-					list of units, which are the specifics you want to learn. And our AI
-					will generate a course for you!
+					list of units, which are the specifics you want to learn. Then let the AI
+					generate a course for you!
 				</div>
 			</div>
 

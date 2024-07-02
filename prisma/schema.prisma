@@ -19,13 +19,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  image       UserImage?
-  password    Password?
-  notes       Note[]
-  roles       Role[]
-  sessions    Session[]
-  connections Connection[]
-   subscriptions Subscription[]
+  image         UserImage?
+  password      Password?
+  notes         Note[]
+  roles         Role[]
+  sessions      Session[]
+  connections   Connection[]
+  subscriptions Subscription[]
 }
 
 model Note {
