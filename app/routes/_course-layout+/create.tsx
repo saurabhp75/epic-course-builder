@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { Field } from '#app/components/forms.js'
 import { Button } from '#app/components/ui/button.js'
 import { Icon } from '#app/components/ui/icon.js'
+import { Progress } from '#app/components/ui/progress.js'
 import { requireUserId } from '#app/utils/auth.server.js'
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -26,12 +27,13 @@ export default function Create() {
 				<Icon name="info" className="mr-3 h-12 w-12 text-blue-400" />
 				<div>
 					Enter in a course title, or what you want to learn about. Then enter a
-					list of units, which are the specifics you want to learn. Then let the AI
-					generate a course for you!
+					list of units, which are the specifics you want to learn. Then let the
+					AI generate a course for you!
 				</div>
 			</div>
 
 			<CreateCourseForm isPro />
+			<SubscriptionAction />
 		</div>
 	)
 }
@@ -140,6 +142,30 @@ function CreateCourseForm({ isPro }: Props) {
 					{loading ? 'Creating...' : 'Create course'}
 				</Button>
 			</Form>
+		</div>
+	)
+}
+
+function SubscriptionAction() {
+	// Get user credits
+	// const handleSubscribe = async () => {
+	// 		const response = await axios.get('/api/stripe')
+	// 		window.location.href = response.data.url
+
+	const loading = false
+	const credits = 7
+	return (
+		<div className="mx-auto mt-4 flex w-1/2 flex-col items-center rounded-md bg-secondary p-4">
+			{credits} / 10 Free Generations 10 Free Generations
+			<Progress className="mt-2" value={(credits / 10) * 100} />
+			<Button
+				disabled={loading}
+				// onClick={handleSubscribe}
+				className="mt-3 bg-gradient-to-tr from-green-400 to-blue-500 font-bold text-white transition hover:from-green-500 hover:to-blue-600"
+			>
+				Upgrade
+				<Icon name="zap" className="ml-2 fill-white" />
+			</Button>
 		</div>
 	)
 }

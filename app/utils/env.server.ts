@@ -23,6 +23,9 @@ const schema = z.object({
 	GEMINI_API_KEY: z.string(),
 	UNSPLASH_ACCESS_KEY: z.string(),
 	YOUTUBE_API_KEY: z.string(),
+	LEMON_SQUEEZY_API_KEY: z.string(),
+	LEMON_SQUEEZY_STORE_ID: z.string(),
+	LEMON_SQUEEZY_WEBHOOK_SECRET: z.string(),
 })
 
 declare global {

@@ -238,3 +238,38 @@ export async function verifyUserPassword(
 
 	return { id: userWithPassword.id }
 }
+
+export async function getUserEmail(userId: string) {
+	const userEmail = await prisma.user.findUnique({
+		select: { email: true },
+		where: { id: userId },
+	})
+
+	return userEmail?.email
+}
+
+export async function getUserIdAndEmail(request: Request) {
+	const authSession = await authSessionStorage.getSession(
+		request.headers.get('cookie'),
+	)
+	const sessionId = authSession.get(sessionKey)
+	if (!sessionId) return null
+	const session = await prisma.session.findUnique({
+		select: { user: { select: { id: true } } },
+		where: { id: sessionId, expirationDate: { gt: new Date() } },
+	})
+	if (!session?.user) {
+		throw redirect('/', {
+			headers: {
+				'set-cookie': await authSessionStorage.destroySession(authSession),
+			},
+		})
+	}
+	// get email from userId
+	const userEmail = await prisma.user.findUnique({
+		select: { email: true },
+		where: { id: session.user.id },
+	})
+
+	return { userId: session.user.id, userEmail: userEmail?.email }
+}
