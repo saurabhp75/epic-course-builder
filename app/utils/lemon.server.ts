@@ -14,15 +14,7 @@ import {
 	updateSubscription,
 	cancelSubscription,
 	getSubscription,
-	// type LicenseKey,
-	// type GetLicenseKeyParams,
 	getLicenseKey,
-	// type ActivateLicense,
-	// activateLicense,
-	// type ValidateLicense,
-	// validateLicense,
-	// type DeactivateLicense,
-	// deactivateLicense,
 } from '@lemonsqueezy/lemonsqueezy.js'
 import {
 	type WebhookEvent,
@@ -35,56 +27,13 @@ import {
 	webhookHasData,
 	webhookHasMeta,
 } from '#app/routes/resources+/webhook-ls.js'
-// import { getUserEmail, getUserId, getUserIdAndEmail } from './auth.server'
 import { getUserEmail, getUserId, getUserIdAndEmail } from './auth.server'
 import { prisma } from './db.server'
 import { getDomainUrl } from './misc'
 
-// Validate a license key or license key instance.
-// const licenseKey = '38b1460a-5104-4067-a91d-77b872934d51'
-// const instanceId = '47596ad9-a811-4ebf-ac8a-03fc7b6d2a17'
-// const { statusCode, error, data } = await validateLicense(
-// 	licenseKey,
-// 	instanceId,
-// )
-
-// const licenseKey = '38b1460a-5104-4067-a91d-77b872934d51'
-// const { statusCode, error, data } = await activateLicense(licenseKey, 'Test')
-
-// const licenseKey = '38b1460a-5104-4067-a91d-77b872934d51'
-// const instanceId = '47596ad9-a811-4ebf-ac8a-03fc7b6d2a17'
-// // Deactivate a license key instance.
-// const { statusCode, error, data } = await deactivateLicense(
-// 	licenseKey,
-// 	instanceId,
-// )
-
 export function initLemon() {
 	lemonSqueezySetup({ apiKey: process.env.LEMON_SQUEEZY_API_KEY })
 }
-
-// export async function retrievePlans() {
-// 	// Gets all active plans
-// 	return await prisma.plan.findMany({
-// 		where: {
-// 			NOT: {
-// 				status: 'draft',
-// 			},
-// 		},
-// 	})
-// }
-
-// export async function retrievePlan(variantId: Plan['variantId']) {
-// 	// Gets single active plan by ID
-// 	return await prisma.plan.findFirst({
-// 		where: {
-// 			variantId: variantId,
-// 			NOT: {
-// 				status: 'draft',
-// 			},
-// 		},
-// 	})
-// }
 
 // Get all subscriptions for the user
 export async function getUserSubscriptions(request: Request) {
@@ -349,48 +298,6 @@ export async function getAllPlans() {
 /**
  * This function will create a checkout on Lemon Squeezy.
  */
-export async function getCheckoutURL({
-	domainUrl,
-	userId,
-	variantId,
-	embed = false,
-}: {
-	domainUrl: string
-	userId: string
-	variantId: string
-	embed: boolean
-}) {
-	initLemon()
-
-	const userEmail = await getUserEmail(userId)
-	invariant(userEmail, 'user email not found')
-
-	const checkout = await createCheckout(
-		process.env.LEMON_SQUEEZY_STORE_ID!,
-		variantId,
-		{
-			checkoutOptions: {
-				embed,
-				media: false,
-				logo: !embed,
-			},
-			checkoutData: {
-				email: userEmail,
-				custom: {
-					user_id: userId,
-				},
-			},
-			productOptions: {
-				enabledVariants: [parseInt(variantId)],
-				redirectUrl: `${domainUrl}/billing/`,
-				receiptButtonText: 'Go to Dashboard',
-				receiptThankYouNote: 'Thank you for signing up to Lemon Stand!',
-			},
-		},
-	)
-
-	return checkout.data?.data.attributes.url
-}
 
 // Get ALL products and variants from a given store
 // This assumes that user's email address is same in
@@ -862,12 +769,34 @@ export async function createCheckoutUrl({
 		'userId/variantId not found in createCheckout form',
 	)
 
-	const url = await getCheckoutURL({
-		domainUrl,
-		userId: userId,
-		variantId: variantId,
-		embed: true,
-	})
+	const userEmail = await getUserEmail(userId)
+	invariant(userEmail, 'user email not found')
+
+	const checkout = await createCheckout(
+		process.env.LEMON_SQUEEZY_STORE_ID!,
+		variantId,
+		{
+			checkoutOptions: {
+				embed: true,
+				media: false,
+				logo: true, // TODO Add a logo
+			},
+			checkoutData: {
+				email: userEmail,
+				custom: {
+					user_id: userId,
+				},
+			},
+			productOptions: {
+				enabledVariants: [parseInt(variantId)],
+				redirectUrl: `${domainUrl}/billing/`,
+				receiptButtonText: 'Go to Dashboard',
+				receiptThankYouNote: `Thank you for purchasing ${variantId}!`,
+			},
+		},
+	)
+
+	const url = checkout.data?.data.attributes.url
 	invariant(url, 'checkoutUrl not found')
 	return url
 }
@@ -1007,6 +936,40 @@ export async function syncProducts() {
 	return productVariants
 }
 
+/**
+ * Get the subscription URLs (update_payment_method and
+ * customer_portal) for the given subscription ID.
+ */
+export async function getSubscriptionURLs(subsId: string) {
+	initLemon()
+	const subscription = await getSubscription(subsId)
+
+	// ToDo: Use invariant here?
+	if (subscription.error) {
+		throw new Error(subscription.error.message)
+	}
+
+	return subscription.data?.data.attributes.urls
+}
+
+export async function getLicenseDetails(licenseKeyId: number) {
+	const {
+		statusCode,
+		error,
+		data: licenseData,
+	} = await getLicenseKey(licenseKeyId, {
+		include: ['order'],
+	})
+
+	if (error) {
+		return json(error, { status: statusCode as number })
+	}
+
+	invariant(licenseData, 'licenseData is null')
+
+	return licenseData
+}
+
 // async function getOrdersLicenses() {
 // 	// Initialize API-client SDK
 // 	initLemon()
@@ -1133,36 +1096,39 @@ export async function syncProducts() {
 // 	}
 // }
 
-/**
- * Get the subscription URLs (update_payment_method and
- * customer_portal) for the given subscription ID.
- */
-export async function getSubscriptionURLs(subsId: string) {
-	initLemon()
-	const subscription = await getSubscription(subsId)
+// Validate a license key or license key instance.
+// const { statusCode, error, data } = await validateLicense(
+// 	licenseKey,
+// 	instanceId,
+// )
 
-	// ToDo: Use invariant here?
-	if (subscription.error) {
-		throw new Error(subscription.error.message)
-	}
+// const { statusCode, error, data } = await activateLicense(licenseKey, 'Test')
 
-	return subscription.data?.data.attributes.urls
-}
+// // Deactivate a license key instance.
+// const { statusCode, error, data } = await deactivateLicense(
+// 	licenseKey,
+// 	instanceId,
+// )
 
-export async function getLicenseDetails(licenseKeyId: number) {
-	const {
-		statusCode,
-		error,
-		data: licenseData,
-	} = await getLicenseKey(licenseKeyId, {
-		include: ['order'],
-	})
+// export async function retrievePlans() {
+// 	// Gets all active plans
+// 	return await prisma.plan.findMany({
+// 		where: {
+// 			NOT: {
+// 				status: 'draft',
+// 			},
+// 		},
+// 	})
+// }
 
-	if (error) {
-		return json(error, { status: statusCode as number })
-	}
-
-	invariant(licenseData, 'licenseData is null')
-
-	return licenseData
-}
+// export async function retrievePlan(variantId: Plan['variantId']) {
+// 	// Gets single active plan by ID
+// 	return await prisma.plan.findFirst({
+// 		where: {
+// 			variantId: variantId,
+// 			NOT: {
+// 				status: 'draft',
+// 			},
+// 		},
+// 	})
+// }
