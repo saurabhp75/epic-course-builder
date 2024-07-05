@@ -8,11 +8,13 @@ import { z } from 'zod'
 import { Field } from '#app/components/forms.js'
 import { Button } from '#app/components/ui/button.js'
 import { Icon } from '#app/components/ui/icon.js'
-import { Progress } from '#app/components/ui/progress.js'
 import { requireUserId } from '#app/utils/auth.server.js'
+import { UpgradeButton } from '../resources+/lemonapi'
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const userId = await requireUserId(request)
+
+	// Get subscription details of the user and send to Browser
 	return json({ userId })
 }
 export default function Create() {
@@ -33,7 +35,7 @@ export default function Create() {
 			</div>
 
 			<CreateCourseForm isPro />
-			<SubscriptionAction />
+			<UpgradeButton />
 		</div>
 	)
 }
@@ -146,26 +148,4 @@ function CreateCourseForm({ isPro }: Props) {
 	)
 }
 
-function SubscriptionAction() {
-	// Get user credits
-	// const handleSubscribe = async () => {
-	// 		const response = await axios.get('/api/stripe')
-	// 		window.location.href = response.data.url
 
-	const loading = false
-	const credits = 7
-	return (
-		<div className="mx-auto mt-4 flex w-1/2 flex-col items-center rounded-md bg-secondary p-4">
-			{credits} / 10 Free Generations 10 Free Generations
-			<Progress className="mt-2" value={(credits / 10) * 100} />
-			<Button
-				disabled={loading}
-				// onClick={handleSubscribe}
-				className="mt-3 bg-gradient-to-tr from-green-400 to-blue-500 font-bold text-white transition hover:from-green-500 hover:to-blue-600"
-			>
-				Upgrade
-				<Icon name="zap" className="ml-2 fill-white" />
-			</Button>
-		</div>
-	)
-}

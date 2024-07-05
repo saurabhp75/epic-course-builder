@@ -14,6 +14,7 @@ import {
 	useLoaderData,
 } from '@remix-run/react'
 import { withSentry } from '@sentry/remix'
+import { ExternalScripts } from 'remix-utils/external-scripts'
 import { HoneypotProvider } from 'remix-utils/honeypot/react'
 import { GeneralErrorBoundary } from './components/error-boundary.tsx'
 import { EpicProgress } from './components/progress-bar.tsx'
@@ -32,6 +33,10 @@ import { useNonce } from './utils/nonce-provider.ts'
 import { type Theme, getTheme } from './utils/theme.server.ts'
 import { makeTimings, time } from './utils/timing.server.ts'
 import { getToast } from './utils/toast.server.ts'
+
+export const handle = {
+	scripts: [{ src: 'https://app.lemonsqueezy.com/js/lemon.js' }],
+}
 
 export const links: LinksFunction = () => {
 	return [
@@ -168,6 +173,7 @@ function Document({
 					}}
 				/>
 				<ScrollRestoration nonce={nonce} />
+				<ExternalScripts />
 				<Scripts nonce={nonce} />
 			</body>
 		</html>

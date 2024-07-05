@@ -27,7 +27,7 @@ import {
 	webhookHasData,
 	webhookHasMeta,
 } from '#app/routes/resources+/webhook-ls.js'
-import { getUserEmail, getUserId, getUserIdAndEmail } from './auth.server'
+import { getUserId, getUserIdAndEmail } from './auth.server'
 import { prisma } from './db.server'
 import { getDomainUrl } from './misc'
 
@@ -760,19 +760,20 @@ export async function createCheckoutUrl({
 	request: Request
 	formData: FormData
 }) {
+	initLemon()
 	const domainUrl = getDomainUrl(request)
-	const userId = formData.get('userId')?.toString()
-	const variantId = formData.get('variantId')?.toString()
+	// const userId = formData.get('userId')?.toString()
+	const variant = formData.get('variantId')?.toString()
 
-	invariant(
-		userId && variantId,
-		'userId/variantId not found in createCheckout form',
-	)
+	const variantId = variant === 'Starter' ? '438424' : '438426'
 
-	const userEmail = await getUserEmail(userId)
-	invariant(userEmail, 'user email not found')
+	invariant(variant, 'variantId not found in createCheckout form')
 
-	const checkout = await createCheckout(
+	const { userId, userEmail, name } = await getUserIdAndEmail(request)
+
+	// invariant(userEmail, 'user email not found')
+
+	const { statusCode, error, data } = await createCheckout(
 		process.env.LEMON_SQUEEZY_STORE_ID!,
 		variantId,
 		{
@@ -783,6 +784,7 @@ export async function createCheckoutUrl({
 			},
 			checkoutData: {
 				email: userEmail,
+				name: name ? name : undefined,
 				custom: {
 					user_id: userId,
 				},
@@ -796,8 +798,17 @@ export async function createCheckoutUrl({
 		},
 	)
 
-	const url = checkout.data?.data.attributes.url
+	if (error) {
+		console.dir({ statusCode })
+		return json('Error in createCheckout API', { status: 500 })
+	}
+
+	console.dir({ statusCode })
+
+	const url = data.data.attributes.url
 	invariant(url, 'checkoutUrl not found')
+	console.log('url:', url)
+
 	return url
 }
 

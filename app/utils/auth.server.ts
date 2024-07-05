@@ -1,3 +1,4 @@
+import { invariant } from '@epic-web/invariant'
 import { type Connection, type Password, type User } from '@prisma/client'
 import { redirect } from '@remix-run/node'
 import bcrypt from 'bcryptjs'
@@ -253,11 +254,14 @@ export async function getUserIdAndEmail(request: Request) {
 		request.headers.get('cookie'),
 	)
 	const sessionId = authSession.get(sessionKey)
-	if (!sessionId) return null
+
+	invariant(sessionId, 'sessionId not found')
+
 	const session = await prisma.session.findUnique({
 		select: { user: { select: { id: true } } },
 		where: { id: sessionId, expirationDate: { gt: new Date() } },
 	})
+
 	if (!session?.user) {
 		throw redirect('/', {
 			headers: {
@@ -265,11 +269,17 @@ export async function getUserIdAndEmail(request: Request) {
 			},
 		})
 	}
-	// get email from userId
-	const userEmail = await prisma.user.findUnique({
-		select: { email: true },
+	// get email and name from userId
+	const currentUser = await prisma.user.findUnique({
+		select: { email: true, name: true },
 		where: { id: session.user.id },
 	})
 
-	return { userId: session.user.id, userEmail: userEmail?.email }
+	invariant(currentUser, 'currentUser not found')
+
+	return {
+		userId: session.user.id,
+		userEmail: currentUser.email,
+		name: currentUser.name,
+	}
 }
