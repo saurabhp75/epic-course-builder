@@ -26,6 +26,7 @@ model User {
   sessions      Session[]
   connections   Connection[]
   subscriptions Subscription[]
+  credits       Int            @default(3)
 }
 
 model Note {
@@ -217,18 +218,18 @@ model Plan {
   subscriptions      Subscription[]
   // You can chose either credits and/or limits
   // As per your use case 
-  credits            Int            @default(10)
-  limits             PlanLimit?
+  // credits            Int            @default(10)
+  // limits             PlanLimit?
 }
 
 // Plan limits are used to describe the limits available to a plan.
-model PlanLimit {
-  id       String @id @default(cuid())
-  plan     Plan   @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  planId   String @unique
-  // Define your own limits. For eg, you can limit the number of items a user can create.
-  maxItems Int    @default(0)
-}
+// model PlanLimit {
+//   id       String @id @default(cuid())
+//   plan     Plan   @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   planId   String @unique
+//   // Define your own limits. For eg, you can limit the number of items a user can create.
+//   maxItems Int    @default(0)
+// }
 
 model WebhookEvent {
   id              String   @id @default(cuid())
