@@ -183,8 +183,8 @@ model Subscription {
   // this will be an ISO 8601 formatted date-time string indicating when
   // the subscription expires (or expired). For all other status values, 
   // this will be null.
-  endsAt             String?
-  trialEndsAt        String?
+  endsAt             String? // Not required for license based product
+  trialEndsAt        String? // Not required for license based product
   price              String
   isUsageBased       Boolean @default(false)
   isPaused           Boolean @default(false)
@@ -205,14 +205,14 @@ model Plan {
   productId          Int //change it to string(TBD)
   productName        String?
   variantId          Int            @unique // change it to string
-  name               String // Need to get from Product
+  name               String // variant-name, Need to get from Product
   description        String?
   price              String
   isUsageBased       Boolean        @default(false)
-  interval           String?
-  intervalCount      Int?
-  trialInterval      String?
-  trialIntervalCount Int?
+  interval           String? // Not required for license based product
+  intervalCount      Int? // Not required for license based product
+  trialInterval      String? // Not required for license based product
+  trialIntervalCount Int? // Not required for license based product
   sort               Int? // variant['attributes']['sort']
   subscriptions      Subscription[]
   // You can chose either credits and/or limits
