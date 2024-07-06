@@ -79,6 +79,7 @@ export function UpgradeButton({ variant = 'Starter' }: { variant?: string }) {
 	const loading = fetcher.state === 'submitting'
 
 	console.log('checkoutUrl:', checkoutUrl)
+	
 	// Make sure Lemon.js is loaded
 	useEffect(() => {
 		if (typeof window.createLemonSqueezy === 'function') {

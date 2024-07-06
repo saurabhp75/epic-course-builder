@@ -190,6 +190,7 @@ function variantsInAProduct(variants: ListVariants['data']) {
 		(acc, variant) => {
 			const productKey = variant['attributes']['product_id'].toString()
 			const existingProduct = acc.hasOwnProperty(productKey)
+			// @ts-ignore
 			const currentCount = existingProduct ? ++acc[productKey] : 1
 			return { ...acc, [productKey]: currentCount }
 		},
@@ -281,8 +282,6 @@ export async function syncPlans() {
 				trialInterval: trialInterval ? (trialInterval as string) : null,
 				trialIntervalCount: trialIntervalCount ? trialIntervalCount : null,
 				sort: variant.attributes.sort,
-				// TODO: Fix the line below
-				credits: 7,
 			},
 			productVariants,
 		)
@@ -938,7 +937,6 @@ export async function syncProducts() {
 				trialInterval: trialInterval ? (trialInterval as string) : null,
 				trialIntervalCount: trialIntervalCount ? trialIntervalCount : null,
 				sort: variant.attributes.sort,
-				credits: 10, // TODO: Fix this
 			},
 			productVariants,
 		)

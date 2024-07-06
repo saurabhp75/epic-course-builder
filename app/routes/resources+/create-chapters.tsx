@@ -1,6 +1,7 @@
 import { parseWithZod } from '@conform-to/zod'
 import { type ActionFunctionArgs, json, redirect } from '@remix-run/node'
 import { getReply } from '#app/utils/ai.server.js'
+import { requireUserId } from '#app/utils/auth.server.js'
 import { prisma } from '#app/utils/db.server.js'
 import { checkHoneypot } from '#app/utils/honeypot.server.js'
 import { getUnsplashImage } from '#app/utils/unsplash.server.js'
@@ -20,9 +21,9 @@ export type CourseObject = {
 type ImageSearchTerm = { imageSearchString: 'calculus graph equations' }
 
 export async function action({ request }: ActionFunctionArgs) {
+	const userId = await requireUserId(request)
 	const formData = await request.formData()
 	checkHoneypot(formData)
-	
 
 	const submission = parseWithZod(formData, {
 		schema: createChaptersSchema,
@@ -112,6 +113,7 @@ export async function action({ request }: ActionFunctionArgs) {
 		},
 	})
 
+	// TODO: Make this a Prisma transaction
 	for (const unit of courseObj.units) {
 		const title = unit.unitTitle
 		const prismaUnit = await prisma.unit.create({
@@ -130,17 +132,18 @@ export async function action({ request }: ActionFunctionArgs) {
 			}),
 		})
 	}
+
 	// Update user billing info
-	// await prisma.user.update({
-	// 	where: {
-	// 		id: session.user.id,
-	// 	},
-	// 	data: {
-	// 		credits: {
-	// 			decrement: 1,
-	// 		},
-	// 	},
-	// })
+	await prisma.user.update({
+		where: {
+			id: userId,
+		},
+		data: {
+			credits: {
+				decrement: 1,
+			},
+		},
+	})
 
 	return redirect(`/course/confirm/${course.id}`)
 }
