@@ -122,25 +122,13 @@ export const Footer1 = () => {
 export const Footer = () => {
 	return (
 		<footer className="bg-foreground text-background" id="footer">
-			{/* <hr className="mx-auto w-11/12" /> */}
-			<section className="container grid grid-cols-2 gap-x-12 gap-y-8 py-20 md:grid-cols-4 xl:grid-cols-6">
+			<section className="container grid grid-cols-2 gap-x-12 gap-y-8 py-20">
 				<div className="col-span-full xl:col-span-2">
 					<Logo />
 				</div>
 
 				<div className="flex flex-col gap-2">
 					<h3 className="text-lg font-bold">Follow US</h3>
-					{/* <div>
-						<Link
-							to={{
-								pathname: '/some/path',
-								hash: '#hash',
-							}}
-							className="opacity-60 hover:opacity-100"
-						>
-							Github
-						</Link>
-					</div> */}
 
 					<div>
 						<Link
@@ -151,57 +139,6 @@ export const Footer = () => {
 							className="opacity-60 hover:opacity-100"
 						>
 							Twitter
-						</Link>
-					</div>
-
-					{/* <div>
-						<Link
-							to={{
-								pathname: '/some/path',
-								hash: '#hash',
-							}}
-							className="opacity-60 hover:opacity-100"
-						>
-							Dribbble
-						</Link>
-					</div> */}
-				</div>
-
-				<div className="flex flex-col gap-2">
-					<h3 className="text-lg font-bold">Platforms</h3>
-					<div>
-						<Link
-							to={{
-								pathname: '/some/path',
-								hash: '#hash',
-							}}
-							className="opacity-60 hover:opacity-100"
-						>
-							Web
-						</Link>
-					</div>
-
-					<div>
-						<Link
-							to={{
-								pathname: '/some/path',
-								hash: '#hash',
-							}}
-							className="opacity-60 hover:opacity-100"
-						>
-							Mobile
-						</Link>
-					</div>
-
-					<div>
-						<Link
-							to={{
-								pathname: '/some/path',
-								hash: '#hash',
-							}}
-							className="opacity-60 hover:opacity-100"
-						>
-							Desktop
 						</Link>
 					</div>
 				</div>
