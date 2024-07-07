@@ -1,4 +1,4 @@
-app = "epic-course-builder-9b2c"
+app = "epic-course"
 primary_region = "sjc"
 kill_signal = "SIGINT"
 kill_timeout = 5
