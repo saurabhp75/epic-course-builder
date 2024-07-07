@@ -43,14 +43,11 @@ export const Hero4 = () => {
 						</div>
 						<div className="flex flex-col gap-4">
 							<h1 className="font-regular max-w-lg text-left text-5xl tracking-tighter md:text-7xl">
-								Launch your startup in days, not months
+								Create your course in minutes, not months
 							</h1>
 							<p className="max-w-md text-balance text-xl leading-relaxed tracking-tight text-muted-foreground">
-								SaaS starter kit meticulously designed for startups, businesses,
-								and beyond With essential UI components, authentication,
-								database integration, and Stripe support, it's your shortcut to
-								launching a feature-rich SaaS and kickstarting your online
-								revenue.
+								Epic course builder lets you create any course using Google's
+								Gemini.
 							</p>
 						</div>
 						<div className="flex flex-row gap-4">
@@ -81,27 +78,27 @@ export const Pricing1 = () => {
 						<h2 className="font-regular max-w-xl text-center text-3xl tracking-tighter md:text-5xl">
 							Prices that make sense!
 						</h2>
-						<p className="flex max-w-xl flex-row gap-2 text-center text-lg leading-relaxed tracking-tight text-muted-foreground">
+						{/* <p className="flex max-w-xl flex-row gap-2 text-center text-lg leading-relaxed tracking-tight text-muted-foreground">
 							<Icon name="gift" className="h-6 w-6" />
 							$100 off for the first 2670 customers (10 left)
-						</p>
+						</p> */}
 					</div>
 					<div className="grid w-full grid-cols-1 gap-8 pt-20 text-left lg:grid-cols-2">
 						<Card className="w-full rounded-md">
 							<CardHeader>
 								<CardTitle>
 									<span className="flex flex-row items-center gap-4 font-normal">
-										EpicSaaS Standard
+										Epic Course Starter
 									</span>
 								</CardTitle>
 								<CardDescription>
-									For those who want just the code.
+									For individuals who need it for themselves.
 								</CardDescription>
 							</CardHeader>
 							<CardContent>
 								<div className="flex flex-col justify-start gap-8">
 									<p className="flex flex-row items-center gap-2 text-xl">
-										<span className="text-4xl">$200</span>
+										<span className="text-4xl">$20/month</span>
 									</p>
 									<div className="flex flex-col justify-start gap-4">
 										<div className="flex flex-row gap-4">
@@ -110,7 +107,7 @@ export const Pricing1 = () => {
 												className="mt-2 h-4 w-4 text-primary"
 											/>
 											<div className="flex flex-col">
-												<p>EpicSaaS Boilerplate</p>
+												<p>Create 10 courses per month</p>
 												<p className="text-sm text-muted-foreground">
 													We&apos;ve made it fast and reliable.
 												</p>
@@ -123,15 +120,6 @@ export const Pricing1 = () => {
 											/>
 											<div className="flex flex-col">
 												<p>Complete Documentation</p>
-												<p className="text-sm text-muted-foreground">
-													We&apos;ve made it fast and reliable.
-												</p>
-											</div>
-										</div>
-										<div className="flex flex-row gap-4 text-muted-foreground">
-											<Icon name="cross-1" className="mt-2 h-4 w-4" />
-											<div className="flex flex-col">
-												<p>Regular Updates</p>
 												<p className="text-sm text-muted-foreground">
 													We&apos;ve made it fast and reliable.
 												</p>
@@ -146,17 +134,15 @@ export const Pricing1 = () => {
 							<CardHeader>
 								<CardTitle>
 									<span className="flex flex-row items-center gap-4 font-normal">
-										EpicSaaS Pro
+										Epic Course Pro
 									</span>
 								</CardTitle>
-								<CardDescription>
-									For those who want the complete package.
-								</CardDescription>
+								<CardDescription>For content creators.</CardDescription>
 							</CardHeader>
 							<CardContent>
 								<div className="flex flex-col justify-start gap-8">
 									<p className="flex flex-row items-center gap-2 text-xl">
-										<span className="text-4xl">$300</span>
+										<span className="text-4xl">$40/month</span>
 									</p>
 									<div className="flex flex-col justify-start gap-4">
 										<div className="flex flex-row gap-4">
@@ -165,7 +151,7 @@ export const Pricing1 = () => {
 												className="mt-2 h-4 w-4 text-primary"
 											/>
 											<div className="flex flex-col">
-												<p>EpicSaaS Boilerplate</p>
+												<p>Create 20 courses per month</p>
 												<p className="text-sm text-muted-foreground">
 													We&apos;ve made it fast and reliable.
 												</p>
@@ -178,18 +164,6 @@ export const Pricing1 = () => {
 											/>
 											<div className="flex flex-col">
 												<p>Complete Documentation</p>
-												<p className="text-sm text-muted-foreground">
-													We&apos;ve made it fast and reliable.
-												</p>
-											</div>
-										</div>
-										<div className="flex flex-row gap-4">
-											<Icon
-												name="check"
-												className="mt-2 h-4 w-4 text-primary"
-											/>
-											<div className="flex flex-col">
-												<p>Regular Updates</p>
 												<p className="text-sm text-muted-foreground">
 													We&apos;ve made it fast and reliable.
 												</p>

@@ -1,7 +1,12 @@
 import * as Craft from '#app/components/craft'
 import { Badge } from '#app/components/ui/badge'
 import { Button } from '#app/components/ui/button'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordian'
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from './accordian'
 import { Icon } from './ui/icon'
 
 export const FAQ1 = () => (
@@ -54,36 +59,21 @@ export const FAQ1 = () => (
 
 const faq = [
 	{
-		question: 'What is EpicSaaS?',
-		answer: `1) The Remix.run starter with all the boilerplate code you need
-	to run an online business: a payment system, a database,
-	login, a blog, UI components, and much more. 
-
-2) The documentation helps you set up your app from scratch,
-     write copy that sells, and ship fast.
-
-3) Access to our Discord with makers who build fast to stay accountable!`,
+		question: 'What is Epic Course?',
+		answer: `It is a platform to create any online course using AI`,
 	},
 	{
-		question: 'How is EpicSaaS different from other SaaS starters?',
-		answer: `1) EpicSaaS has one of the most complete auth among SaaS starters. 
-
-2) It is dockerised so you can deploy on almost all the cloud providers.
-
-3) It includes e2e and unit tests with mocks included so you don't even need internet to test`,
+		question: 'How is Epic Course different from other course builders?',
+		answer: `Epic course requires fewer steps and is faster than the competetion`,
 	},
 
 	{
-		question: 'Does OneMix use JavaScript or TypeScript?',
-		answer: `TypeScript. Let me know if you prefer JavaScript.`,
-	},
-	{
-		question: 'Can I use a different tech stack?',
-		answer: `If you know React and Remix, you can customize in anyway. Change payments from Stripe to PayPal, email from Resend to Mailgun, and so on.`,
+		question: 'Can I build a non technical course using Epic Course?',
+		answer: `Of course, you can build any course using Epic Course`,
 	},
 	{
 		question: 'Can I get a refund?',
-		answer: `After you get access to the repo, EpicSaaS is yours forever, so there can be no refund.`,
+		answer: `You can get refund as per our refund policy`,
 	},
 	{
 		question: 'I have another question.',
@@ -102,10 +92,8 @@ export const FAQ2 = () => (
 							This is the start of something new
 						</h4>
 						<p className="max-w-xl text-center text-lg leading-relaxed tracking-tight text-muted-foreground">
-							Managing a small business today is already tough. Avoid further
-							complications by ditching outdated, tedious trade methods. Our
-							goal is to streamline SMB trade, making it easier and faster than
-							ever.
+							Creating an online course is tough. Use Epic Course builder to
+							create any course in simple steps using the power of AI.
 						</p>
 					</div>
 					<div>
