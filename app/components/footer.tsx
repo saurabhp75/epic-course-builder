@@ -122,34 +122,18 @@ export const Footer1 = () => {
 export const Footer = () => {
 	return (
 		<footer className="bg-foreground text-background" id="footer">
-			<section className="container grid grid-cols-2 gap-x-12 gap-y-8 py-20">
-				<div className="col-span-full xl:col-span-2">
+			<section className="container grid gap-y-8 py-20 md:grid-cols-2 lg:grid-cols-3">
+				<div className="justify-self-start">
 					<Logo />
 				</div>
 
 				<div className="flex flex-col gap-2">
-					<h3 className="text-lg font-bold">Follow US</h3>
-
+					<h3 className="text-lg font-bold">Links</h3>
 					<div>
 						<Link
 							to={{
-								pathname: '/some/path',
-								hash: '#hash',
-							}}
-							className="opacity-60 hover:opacity-100"
-						>
-							Twitter
-						</Link>
-					</div>
-				</div>
-
-				<div className="flex flex-col gap-2">
-					<h3 className="text-lg font-bold">About</h3>
-					<div>
-						<Link
-							to={{
-								pathname: '/some/path',
-								hash: '#hash',
+								pathname: '/',
+								hash: '#features',
 							}}
 							className="opacity-60 hover:opacity-100"
 						>
@@ -160,8 +144,8 @@ export const Footer = () => {
 					<div>
 						<Link
 							to={{
-								pathname: '/some/path',
-								hash: '#hash',
+								pathname: '/',
+								hash: '#pricing',
 							}}
 							className="opacity-60 hover:opacity-100"
 						>
@@ -172,8 +156,8 @@ export const Footer = () => {
 					<div>
 						<Link
 							to={{
-								pathname: '/some/path',
-								hash: '#hash',
+								pathname: '/',
+								hash: '#faq',
 							}}
 							className="opacity-60 hover:opacity-100"
 						>
@@ -183,40 +167,28 @@ export const Footer = () => {
 				</div>
 
 				<div className="flex flex-col gap-2">
-					<h3 className="text-lg font-bold">Community</h3>
+					<h3 className="text-lg font-bold">Legal</h3>
 					<div>
 						<Link
 							to={{
-								pathname: '/some/path',
-								hash: '#hash',
+								pathname: '/privacy',
+								// hash: '#hash',
 							}}
 							className="opacity-60 hover:opacity-100"
 						>
-							Youtube
+							Privacy policy
 						</Link>
 					</div>
 
 					<div>
 						<Link
 							to={{
-								pathname: '/some/path',
-								hash: '#hash',
+								pathname: '/tos',
+								// hash: '#hash',
 							}}
 							className="opacity-60 hover:opacity-100"
 						>
-							Discord
-						</Link>
-					</div>
-
-					<div>
-						<Link
-							to={{
-								pathname: '/some/path',
-								hash: '#hash',
-							}}
-							className="opacity-60 hover:opacity-100"
-						>
-							Twitch
+							Terms of service
 						</Link>
 					</div>
 				</div>
