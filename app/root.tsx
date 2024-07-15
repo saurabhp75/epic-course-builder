@@ -63,7 +63,7 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	return [
-		{ title: data ? 'Epic Notes' : 'Error | Epic Notes' },
+		{ title: data ? 'Epic Course' : 'Error | Epic Course' },
 		{ name: 'description', content: `Your own captain's log` },
 	]
 }

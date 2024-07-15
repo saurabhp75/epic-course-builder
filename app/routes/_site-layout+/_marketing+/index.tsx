@@ -16,7 +16,7 @@ import {
 import { Icon } from '#app/components/ui/icon.js'
 import { CheckoutButton } from '#app/routes/resources+/lemonapi.js'
 
-export const meta: MetaFunction = () => [{ title: 'Epic Notes' }]
+export const meta: MetaFunction = () => [{ title: 'Epic Course' }]
 
 export default function Index() {
 	return (
