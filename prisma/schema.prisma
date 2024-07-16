@@ -27,6 +27,7 @@ model User {
   connections   Connection[]
   subscriptions Subscription[]
   credits       Int            @default(3)
+  courses       Course[]
 }
 
 model Note {
@@ -242,10 +243,12 @@ model WebhookEvent {
 
 // course contains many units
 model Course {
-  id    String @id @default(cuid())
-  name  String
-  image String
-  units Unit[]
+  id      String @id @default(cuid())
+  name    String
+  image   String
+  units   Unit[]
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ownerId String
 }
 
 // unit contains many chapters
