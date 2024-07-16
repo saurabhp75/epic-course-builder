@@ -110,6 +110,7 @@ export async function action({ request }: ActionFunctionArgs) {
 		data: {
 			name: submission.value.title,
 			image: courseImage,
+			ownerId: userId,
 		},
 	})
 
