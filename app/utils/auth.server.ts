@@ -15,6 +15,7 @@ export const getSessionExpirationDate = () =>
 	new Date(Date.now() + SESSION_EXPIRATION_TIME)
 
 export const sessionKey = 'sessionId'
+export const IMPERSONATOR_SESSION_KEY = 'impersonatorSessionId'
 
 export const authenticator = new Authenticator<ProviderUser>(
 	connectionSessionStorage,
@@ -282,4 +283,30 @@ export async function getUserIdAndEmail(request: Request) {
 		userEmail: currentUser.email,
 		name: currentUser.name,
 	}
+}
+
+export const getImpersonator = async (request: Request) => {
+	const authSession = await authSessionStorage.getSession(
+		request.headers.get('cookie'),
+	)
+
+	const impersonatorSessionId = authSession.get(IMPERSONATOR_SESSION_KEY)
+
+	if (!impersonatorSessionId) {
+		return null
+	}
+
+	const session = await prisma.session.findUnique({
+		where: { id: impersonatorSessionId },
+	})
+
+	if (!session) {
+		return null
+	}
+
+	const user = await prisma.user.findUnique({
+		where: { id: session?.userId },
+	})
+
+	return { user, session }
 }

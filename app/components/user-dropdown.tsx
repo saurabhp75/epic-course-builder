@@ -1,5 +1,6 @@
-import { useSubmit, Link, Form } from '@remix-run/react'
+import { useSubmit, Link, Form, useRouteLoaderData } from '@remix-run/react'
 import { useRef } from 'react'
+import { type loader as rootLoader } from '#app/root.tsx'
 import { getUserImgSrc } from '#app/utils/misc.js'
 import { useUser } from '#app/utils/user.js'
 import { Button } from './ui/button'
@@ -16,6 +17,11 @@ export function UserDropdown() {
 	const user = useUser()
 	const submit = useSubmit()
 	const formRef = useRef<HTMLFormElement>(null)
+	const data = useRouteLoaderData<typeof rootLoader>('root')
+	const userRolesIncludesAdmin = user.roles.some((role) => {
+		return role.name === 'admin'
+	})
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -39,6 +45,18 @@ export function UserDropdown() {
 			</DropdownMenuTrigger>
 			<DropdownMenuPortal>
 				<DropdownMenuContent sideOffset={8} align="start">
+					{data?.impersonator && (
+						<DropdownMenuItem asChild>
+							<Form action="/impersonate" method="POST">
+								<input type="hidden" name="intent" value="stop" />
+								<Button className="bg-white">
+									<Icon className="text-body-md" name="exit">
+										Stop Impersonating {user.username}
+									</Icon>
+								</Button>
+							</Form>
+						</DropdownMenuItem>
+					)}
 					<DropdownMenuItem asChild>
 						<Link prefetch="intent" to={`/users/${user.username}`}>
 							<Icon className="text-body-md" name="avatar">
@@ -53,6 +71,15 @@ export function UserDropdown() {
 							</Icon>
 						</Link>
 					</DropdownMenuItem>
+					{userRolesIncludesAdmin && (
+						<DropdownMenuItem asChild>
+							<Link prefetch="intent" to={`/admin/users`}>
+								<Icon className="text-body-md" name="lock-closed">
+									Manage Users
+								</Icon>
+							</Link>
+						</DropdownMenuItem>
+					)}
 					<DropdownMenuItem
 						asChild
 						// this prevents the menu from closing before the form submission is completed
