@@ -1,11 +1,9 @@
 import docker from '/assets/logos/docker.svg'
-// import eslint from '/assets/logos/eslint.svg'
 import fakerJS from '/assets/logos/faker.svg'
 import fly from '/assets/logos/fly.svg'
 import github from '/assets/logos/github.svg'
 import msw from '/assets/logos/msw.svg'
 import playwright from '/assets/logos/playwright.svg'
-// import prettier from '/assets/logos/prettier.svg'
 import prisma from '/assets/logos/prisma.svg'
 import radixUI from '/assets/logos/radix.svg'
 import reactEmail from '/assets/logos/react-email.svg'
@@ -19,8 +17,6 @@ import testingLibrary from '/assets/logos/testing-library.png'
 import typescript from '/assets/logos/typescript.svg'
 import vitest from '/assets/logos/vitest.svg'
 import zod from '/assets/logos/zod.svg'
-
-// export { default as stars } from './stars.jpg'
 
 export const logos = [
 	{
@@ -155,13 +151,6 @@ export const logos = [
 	// 	href: 'https://prettier.io',
 	// 	column: 5,
 	// 	row: 3,
-	// },
-	// {
-	// 	src: eslint,
-	// 	alt: 'ESLint',
-	// 	href: 'https://eslint.org',
-	// 	column: 5,
-	// 	row: 4,
 	// },
 	{
 		src: sentry,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { logos } from '../../public/assets/logos/logos'
+import { logos } from '../../assets/logos/logos'
 import {
 	Carousel,
 	type CarouselApi,
