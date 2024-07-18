@@ -13,7 +13,8 @@ export class GoogleProvider implements AuthProvider {
 			{
 				client_id: process.env.GOOGLE_CLIENT_ID,
 				client_secret: process.env.GOOGLE_CLIENT_SECRET,
-				redirect_uri: 'http://localhost:3000/auth/google/callback',
+				// TODO: How to make this configurable to localhost and production
+				redirect_uri: 'https://epiccourse.dev/auth/google/callback',
 				authorizationParams: {
 					scope: ['openid', 'email'],
 				},
