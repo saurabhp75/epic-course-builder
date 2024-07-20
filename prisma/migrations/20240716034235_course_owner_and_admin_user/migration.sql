@@ -21,4 +21,7 @@ PRAGMA foreign_keys=ON;
 PRAGMA defer_foreign_keys=OFF;
 
 -- Manually add admin user
+INSERT INTO Password VALUES('$2a$10$267QiBqSJGsYka6CKiTIxOrrqhV6vKrhYZabZqXYAIUUosy80x5zG','clynvc4ot0000dhxbu5owo530');
+INSERT INTO _RoleToUser VALUES('clnf2zvlw000gpcour6dyyuh6','clynvc4ot0000dhxbu5owo530');
+INSERT INTO _RoleToUser VALUES('clnf2zvlx000hpcou5dfrbegs','clynvc4ot0000dhxbu5owo530');
 INSERT INTO User VALUES('clynvc4ot0000dhxbu5owo530','koko@epiccourse.dev','koko','Koko',1721101401533,1721101401533,3);
