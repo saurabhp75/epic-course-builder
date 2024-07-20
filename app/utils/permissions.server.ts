@@ -47,6 +47,7 @@ export async function requireUserWithRole(request: Request, name: string) {
 		where: { id: userId, roles: { some: { name } } },
 	})
 	if (!user) {
+		// TODO: Handle this throw to not crash the app
 		throw json(
 			{
 				error: 'Unauthorized',

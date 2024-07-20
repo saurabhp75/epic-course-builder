@@ -8,14 +8,14 @@ export const Feature1 = () => (
 				<div className="flex flex-col gap-10">
 					<div className="flex flex-col gap-4">
 						<div>
-							<Badge variant="outline">Platform</Badge>
+							<Badge variant="outline">EpicCourse</Badge>
 						</div>
 						<div className="flex flex-col gap-2">
 							<h2 className="font-regular max-w-xl text-left text-3xl tracking-tighter lg:text-5xl">
 								Something new!
 							</h2>
 							<p className="max-w-xl text-left text-lg leading-relaxed tracking-tight text-muted-foreground">
-								Managing a small business today is already tough.
+								Creating a course today is already tough.
 							</p>
 						</div>
 					</div>
@@ -25,7 +25,7 @@ export const Feature1 = () => (
 							<div className="flex flex-col gap-1">
 								<p>Easy to use</p>
 								<p className="text-sm text-muted-foreground">
-									We&apos;ve made it easy to use and understand.
+									We&apos;ve made it easy to create courses.
 								</p>
 							</div>
 						</div>
@@ -34,7 +34,7 @@ export const Feature1 = () => (
 							<div className="flex flex-col gap-1">
 								<p>Fast and reliable</p>
 								<p className="text-sm text-muted-foreground">
-									We&apos;ve made it fast and reliable.
+									We&apos;ve made creating a course fast and reliable.
 								</p>
 							</div>
 						</div>

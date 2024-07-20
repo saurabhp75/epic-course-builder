@@ -22,7 +22,7 @@ export default function Index() {
 	return (
 		<main>
 			<Hero4 />
-			<Case2 />
+			{/* <Case2 /> */}
 			<Feature1 />
 			<CTA2 />
 			<Pricing1 />
@@ -38,9 +38,9 @@ export const Hero4 = () => {
 			<div className="container mx-auto">
 				<div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
 					<div className="flex flex-col gap-4">
-						<div>
+						{/* <div>
 							<Badge variant="outline">We&apos;re live!</Badge>
-						</div>
+						</div> */}
 						<div className="flex flex-col gap-4">
 							<h1 className="font-regular max-w-lg text-left text-5xl tracking-tighter md:text-7xl">
 								Create your course in minutes, not months
@@ -52,9 +52,9 @@ export const Hero4 = () => {
 						</div>
 						<div className="flex flex-row gap-4">
 							<CheckoutButton product="EpicSaaS-Pro" />
-							<Button size="lg" className="gap-4" variant="outline">
+							{/* <Button size="lg" className="gap-4" variant="outline">
 								Learn More <Icon name="chevron-right" className="h-4 w-4" />
-							</Button>
+							</Button> */}
 						</div>
 					</div>
 					<div className="grid grid-cols-2 gap-8">

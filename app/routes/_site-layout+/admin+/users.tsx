@@ -1,5 +1,6 @@
 import { type LoaderFunctionArgs, json } from '@remix-run/node'
 import { Form, useLoaderData } from '@remix-run/react'
+import { GeneralErrorBoundary } from '#app/components/error-boundary.js'
 import { Button } from '#app/components/ui/button.tsx'
 import { getImpersonator } from '#app/utils/auth.server.ts'
 import { prisma } from '#app/utils/db.server.ts'
@@ -25,7 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 	})
 }
 
-function Users() {
+export default function Users() {
 	const currentUser = useUser()
 	const { users, canImpersonate } = useLoaderData<typeof loader>()
 
@@ -69,4 +70,15 @@ function Users() {
 	)
 }
 
-export default Users
+export function ErrorBoundary() {
+	return (
+		<GeneralErrorBoundary
+			statusHandlers={{
+				403: () => <p>You are not allowed to do that</p>,
+				404: ({ params }) => (
+					<p>No note with the id "{params.noteId}" exists</p>
+				),
+			}}
+		/>
+	)
+}
