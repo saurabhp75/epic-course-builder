@@ -19,7 +19,10 @@ server.listen({
 		if (request.url.includes('.sentry.io')) {
 			return
 		}
-
+		if (request.url.includes('lemonsqueezy.com')) return
+		if (request.url.includes('youtube.com')) return
+		if (request.url.includes('unsplash.com')) return
+		if (request.url.includes('googleapis.com')) return
 		// Print the regular MSW unhandled request warning otherwise.
 		print.warning()
 	},
