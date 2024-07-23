@@ -11,8 +11,8 @@ export async function loader({ params }: LoaderFunctionArgs) {
 	const [unitIndex, chapterIndex] = unitChapter.split('-')
 	invariant(unitIndex && chapterIndex, 'unit or chapter or courseId not found')
 
-	console.log(unitIndex, chapterIndex)
-	console.log(courseId)
+	// console.log(unitIndex, chapterIndex)
+	// console.log(courseId)
 
 	// Get course and chapter details from db (findFirst)
 	const course = await prisma.course.findUnique({
