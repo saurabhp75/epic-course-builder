@@ -1,11 +1,9 @@
 import { type MetaFunction } from '@remix-run/node'
-import { Case2 } from '#app/components/case.js'
 import { CTA2 } from '#app/components/cta.js'
 import { FAQ2 } from '#app/components/faq.js'
 import { Feature1 } from '#app/components/features.js'
 import { ScrollToTop } from '#app/components/ScrollToTop.js'
 import { Badge } from '#app/components/ui/badge.js'
-import { Button } from '#app/components/ui/button.js'
 import {
 	Card,
 	CardContent,

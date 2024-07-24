@@ -114,7 +114,7 @@ export async function action({ request }: ActionFunctionArgs) {
 		})
 	})
 
-	return redirect(`/course/${courseId}`)
+	return redirect(`/course/${courseId}/0-0`)
 }
 
 // const trans = [

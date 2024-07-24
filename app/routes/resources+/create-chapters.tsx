@@ -147,5 +147,5 @@ export async function action({ request }: ActionFunctionArgs) {
 	})
 
 	// Redirect to first unit, first chapter of the course
-	return redirect(`/course/confirm/${course.id}/0-0`)
+	return redirect(`/course/confirm/${course.id}`)
 }
