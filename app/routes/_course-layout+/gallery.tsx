@@ -41,7 +41,7 @@ function GalleryCourseCard({ course }: Props) {
 			<div className="rounded-lg border border-secondary">
 				<div className="relative">
 					<Link
-						to={`/course/${course.id}/0/0`}
+						to={`/course/${course.id}/0-0`}
 						className="relative block w-fit"
 					>
 						<img
