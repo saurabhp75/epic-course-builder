@@ -20,15 +20,11 @@ import {
 import {
 	type WebhookEvent,
 	type Plan,
-	// type Prisma,
 	type User,
 	Prisma,
 } from '@prisma/client'
 import { json } from '@remix-run/react'
-// import {
-// 	webhookHasData,
-// 	webhookHasMeta,
-// } from '#app/routes/resources+/webhook-ls.js'
+
 import { prisma } from '#app/utils/db.server'
 import { getUserId, getUserIdAndEmail } from './auth.server'
 import { getDomainUrl } from './misc'
@@ -799,17 +795,16 @@ export async function createCheckoutUrl({
 	const domainUrl = getDomainUrl(request)
 	// const userId = formData.get('userId')?.toString()
 	const variant = formData.get('variantId')?.toString()
+	invariant(variant, 'variant not found in createCheckout form')
 
 	const variantId = variant === 'Starter' ? '438424' : '438426'
-
-	invariant(variant, 'variantId not found in createCheckout form')
 
 	const { userId, userEmail, name } = await getUserIdAndEmail(request)
 
 	// invariant(userEmail, 'user email not found')
 
 	const { statusCode, error, data } = await createCheckout(
-		process.env.LEMON_SQUEEZY_STORE_ID!,
+		process.env.LEMON_SQUEEZY_STORE_ID,
 		variantId,
 		{
 			checkoutOptions: {

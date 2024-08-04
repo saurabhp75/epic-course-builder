@@ -20,7 +20,6 @@ export default function Index() {
 	return (
 		<main>
 			<Hero4 />
-			{/* <Case2 /> */}
 			<Feature1 />
 			<CTA2 />
 			<Pricing1 />
@@ -36,9 +35,6 @@ export const Hero4 = () => {
 			<div className="container mx-auto">
 				<div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
 					<div className="flex flex-col gap-4">
-						{/* <div>
-							<Badge variant="outline">We&apos;re live!</Badge>
-						</div> */}
 						<div className="flex flex-col gap-4">
 							<h1 className="font-regular max-w-lg text-left text-5xl tracking-tighter md:text-7xl">
 								Create your course in minutes, not months
@@ -50,9 +46,6 @@ export const Hero4 = () => {
 						</div>
 						<div className="flex flex-row gap-4">
 							<CheckoutButton product="EpicSaaS-Pro" />
-							{/* <Button size="lg" className="gap-4" variant="outline">
-								Learn More <Icon name="chevron-right" className="h-4 w-4" />
-							</Button> */}
 						</div>
 					</div>
 					<div className="grid grid-cols-2 gap-8">
@@ -76,10 +69,6 @@ export const Pricing1 = () => {
 						<h2 className="font-regular max-w-xl text-center text-3xl tracking-tighter md:text-5xl">
 							Prices that make sense!
 						</h2>
-						{/* <p className="flex max-w-xl flex-row gap-2 text-center text-lg leading-relaxed tracking-tight text-muted-foreground">
-							<Icon name="gift" className="h-6 w-6" />
-							$100 off for the first 2670 customers (10 left)
-						</p> */}
 					</div>
 					<div className="grid w-full grid-cols-1 gap-8 pt-20 text-left lg:grid-cols-2">
 						<Card className="w-full rounded-md">

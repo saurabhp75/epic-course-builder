@@ -50,7 +50,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 			},
 		},
 	})
-	// console.dir(course)
 	invariant(course, 'course not found')
 
 	return json(course)
@@ -91,14 +90,6 @@ export default function CourseId() {
 									</div>
 								)
 							})}
-
-							{/* <NavLink
-								to="starter-kit"
-								className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
-							>
-								<Icon name="rocket" className="h-4 w-4" />
-								Starter Kit{' '}
-							</NavLink> */}
 						</nav>
 					</div>
 				</div>

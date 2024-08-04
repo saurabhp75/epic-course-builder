@@ -1,7 +1,6 @@
 import { getFormProps, getInputProps, useForm } from '@conform-to/react'
 import { getZodConstraint, parseWithZod } from '@conform-to/zod'
 import { type LoaderFunctionArgs, json } from '@remix-run/node'
-// import { useLoaderData } from '@remix-run/react'
 import { Form, useNavigation } from '@remix-run/react'
 import { HoneypotInputs } from 'remix-utils/honeypot/react'
 import { z } from 'zod'
@@ -64,9 +63,7 @@ function CreateCourseForm({ isPro }: Props) {
 	})
 	const units = fields.units.getFieldList()
 
-	// const { toast } = useToast()
-	// Toast on success and error
-
+	// Add Toast on success and error
 	return (
 		<div className="w-full">
 			<Form

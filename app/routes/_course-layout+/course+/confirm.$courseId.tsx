@@ -16,22 +16,9 @@ type CourseProps = {
 	}
 }
 
-// const ChapterSchema = z.object({
-// 	courseName: z.string(),
-// 	searchString: z.string(),
-// })
-
-// const UnitSchema = z.object({
-// 	unitName: z.string(),
-// 	courses: z.array(ChapterSchema),
-// })
-
-// const CourseSchema = z.array(UnitSchema)
-
 export async function loader({ request, params }: LoaderFunctionArgs) {
 	// redirect to gallery instead of login page
 	await requireUserId(request)
-	// 	return redirect('/gallery')
 
 	// Get course details from courseId
 	const course = await prisma.course.findUnique({
@@ -47,14 +34,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 		},
 	})
 	invariant(course, 'course not found')
-	// console.dir(course)
 
 	return json(course)
 }
 
 export default function CourseId() {
 	const data = useLoaderData<typeof loader>()
-	// console.log(JSON.stringify(data, null, 2))
 
 	return (
 		<div className="mx-auto my-16 flex max-w-xl flex-col items-start">
@@ -88,12 +73,12 @@ function ConfirmChapters({ course }: CourseProps) {
 			>
 				<input
 					type="hidden"
-					name="courseTitle" // name?
+					name="courseTitle" 
 					value={course.name}
 				/>
 				<input
 					type="hidden"
-					name="courseId" // name?
+					name="courseId" 
 					value={course.id}
 				/>
 				{course.units.map((unit, unitIndex) => {
@@ -108,7 +93,7 @@ function ConfirmChapters({ course }: CourseProps) {
 										<div key={chapterIndex}>
 											<input
 												type="hidden"
-												name={chapter.id} // name?
+												name={chapter.id}
 												value={chapter.youtubeSearchQuery}
 											/>
 											<Field

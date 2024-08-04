@@ -1,7 +1,7 @@
 export default function CourseIdIndex() {
 	return (
 		<div>
-			<h1>Course Index Route</h1>
+			<h1>Please select a chapter</h1>
 		</div>
 	)
 }

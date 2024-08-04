@@ -4,8 +4,6 @@ import { useEffect } from 'react'
 import { LoadingButton } from '#app/components/loading-button.js'
 import { Button } from '#app/components/ui/button.js'
 import { Icon } from '#app/components/ui/icon.js'
-// import { LoadingButton } from '#app/components/ui/loading-button.js'
-// import { requireUserId } from '#app/utils/auth.server.js'
 import { Progress } from '#app/components/ui/progress.js'
 import { createCheckoutUrl, syncProducts } from '#app/utils/lemon.server.js'
 
@@ -79,7 +77,7 @@ export function UpgradeButton({ variant = 'Starter' }: { variant?: string }) {
 	const loading = fetcher.state === 'submitting'
 
 	console.log('checkoutUrl:', checkoutUrl)
-	
+
 	// Make sure Lemon.js is loaded
 	useEffect(() => {
 		if (typeof window.createLemonSqueezy === 'function') {
@@ -134,47 +132,4 @@ export function SyncProductsForm() {
 			</fetcher.Form>
 		</>
 	)
-	// {productVariants &&
-	// 		productVariants.map(item => (
-	// 			<div key={item.id}>
-	// 				<p>lemonSqueezyId:{item.id}</p>
-	// 				<p>productId: {item.productId}</p>
-	// 				<p>productName: {item.productName}</p>
-	// 				<p>variantId: {item.variantId}</p>
-	// 				{/* <p>status: {item.status}</p> */}
-	// 				<p>name: {item.name}</p>
-	// 				<p>description: {item.description}</p>
-	// 				<p>price: {item.price}</p>
-	// 				<p>isUsageBased: {item.isUsageBased}</p>
-	// 				<p>interval: {item.interval}</p>
-	// 				<p>intervalCount: {item.intervalCount}</p>
-	// 				<p>trialInterval: {item.trialInterval}</p>
-	// 				<p>trialIntervalCount: {item.trialIntervalCount}</p>
-	// 				<p>sort: {item.sort}</p>
-	// 			</div>
-	// 		))}
 }
-
-// export function SyncPurchasesForm() {
-// 	// const productVariants = useActionData<typeof action>()
-// 	const fetcher = useFetcher<typeof syncPurchases>()
-// 	// const purchases = fetcher.data
-// 	const loading = fetcher.state === 'submitting'
-// 	// console.log(purchases)
-
-// 	return (
-// 		<>
-// 			<fetcher.Form method="POST" action="/resources/lemonapi">
-// 				<LoadingButton
-// 					loading={loading}
-// 					type="submit"
-// 					name="intent"
-// 					value="syncPurchases"
-// 					className="flex gap-1"
-// 				>
-// 					Sync purchases
-// 				</LoadingButton>
-// 			</fetcher.Form>
-// 		</>
-// 	)
-// }
