@@ -5,11 +5,11 @@ import { LoadingButton } from '#app/components/loading-button.js'
 import { Button } from '#app/components/ui/button.js'
 import { Icon } from '#app/components/ui/icon.js'
 import { Progress } from '#app/components/ui/progress.js'
+import { requireUserId } from '#app/utils/auth.server.js'
 import { createCheckoutUrl, syncProducts } from '#app/utils/lemon.server.js'
 
 export async function action({ request }: ActionFunctionArgs) {
-	// TODO: Uncomment the line below
-	// const userId = await requireUserId(request)
+	await requireUserId(request)
 	const formData = await request.formData()
 	const intent = formData.get('intent')
 	switch (intent) {
@@ -35,6 +35,7 @@ export function CheckoutButton({ product }: { product: string }) {
 	// console.log(checkoutUrl)
 	const buttonText =
 		product === 'EpicSaaS-Pro' ? 'Get EpicSaaS Pro' : 'Get EpicSaaS Standard'
+	// product === 'Get Started' ? 'Get Started' : 'Get EpicSaaS Standard'
 
 	// Make sure Lemon.js is loaded
 	useEffect(() => {

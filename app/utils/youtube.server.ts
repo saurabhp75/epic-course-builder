@@ -1,5 +1,4 @@
 import { YoutubeTranscript } from 'youtube-transcript'
-// import { getReply } from './ai.server'
 
 export async function searchYoutube(searchQuery: string) {
 	searchQuery = encodeURIComponent(searchQuery)
