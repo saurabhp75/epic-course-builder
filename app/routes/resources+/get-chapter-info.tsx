@@ -31,8 +31,8 @@ export async function action({ request }: ActionFunctionArgs) {
 	// Get chapterIds and queryStrings from the form object
 	const chapterIds = Object.keys(formdataObject)
 	const queryStrings = Object.values(formdataObject)
-	console.log(chapterIds)
-	console.log(queryStrings)
+	// console.log(chapterIds)
+	// console.log(queryStrings)
 
 	const videoIdsPromises = queryStrings.map((val) =>
 		searchYoutube(val as string),
@@ -40,7 +40,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 	// Get videoIds from youtubeSearchQuery strings
 	const videosIds = await Promise.all(videoIdsPromises)
-	console.log(videosIds)
+	// console.log(videosIds)
 
 	const transcriptPromises = videosIds.map((videoId) => getTranscript(videoId))
 
