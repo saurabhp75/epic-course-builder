@@ -1,7 +1,4 @@
 import {
-	json,
-	type LoaderFunctionArgs,
-	redirect,
 	type MetaFunction,
 } from '@remix-run/node'
 import { CTA2 } from '#app/components/cta.js'
@@ -18,18 +15,8 @@ import {
 } from '#app/components/ui/card.js'
 import { Icon } from '#app/components/ui/icon.js'
 import { CheckoutButton } from '#app/routes/resources+/lemonapi.js'
-import { getUserId } from '#app/utils/auth.server.js'
 
 export const meta: MetaFunction = () => [{ title: 'Epic Course' }]
-
-export async function loader({ request }: LoaderFunctionArgs) {
-	// redirect logged in user his dashboard
-	const userId = await getUserId(request)
-	if (userId) {
-		throw redirect('/dashboard')
-	}
-	return json({})
-}
 
 export default function Index() {
 	return (
