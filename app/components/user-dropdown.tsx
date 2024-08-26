@@ -58,7 +58,7 @@ export function UserDropdown() {
 						</DropdownMenuItem>
 					)}
 					<DropdownMenuItem asChild>
-						<Link prefetch="intent" to={`/users/${user.username}`}>
+						<Link prefetch="intent" to={`/dashboard`}>
 							<Icon className="text-body-md" name="airplay">
 								Dashboard
 							</Icon>
