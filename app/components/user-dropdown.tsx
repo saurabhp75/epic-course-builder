@@ -71,13 +71,13 @@ export function UserDropdown() {
 							</Icon>
 						</Link>
 					</DropdownMenuItem>
-					<DropdownMenuItem asChild>
+					{/* <DropdownMenuItem asChild>
 						<Link prefetch="intent" to={`/users/${user.username}/notes`}>
 							<Icon className="text-body-md" name="pencil-2">
 								Notes
 							</Icon>
 						</Link>
-					</DropdownMenuItem>
+					</DropdownMenuItem> */}
 					{userRolesIncludesAdmin && (
 						<DropdownMenuItem asChild>
 							<Link prefetch="intent" to={`/admin/users`}>
