@@ -829,11 +829,9 @@ export async function createCheckoutUrl({
 	)
 
 	if (error) {
-		// console.dir({ statusCode })
+		console.dir({ statusCode })
 		return json('Error in createCheckout API', { status: 500 })
 	}
-
-	// console.dir({ statusCode })
 
 	const url = data.data.attributes.url
 	invariant(url, 'checkoutUrl not found')

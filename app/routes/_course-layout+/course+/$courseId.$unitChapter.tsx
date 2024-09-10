@@ -51,7 +51,7 @@ export default function CourseIdSplat() {
 	return (
 		<div className="mt-16 flex-[2]">
 			<h4 className="text-sm uppercase text-secondary-foreground/60">
-				Unit {unitIndex + 1} &bull; Chapter {chapterIndex + 1}
+				Unit {+unitIndex + 1} &bull; Chapter {+chapterIndex + 1}
 			</h4>
 			<h1 className="text-4xl font-bold">{chapter.name}</h1>
 			<iframe
